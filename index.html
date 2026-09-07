@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CropWise | Smart growing decisions</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Sign Up Page -->
+    <div id="signupPage" class="auth-container active">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="brand-mark">✦</div>
+                <h1>Start growing smarter</h1>
+                <p>Create your CropWise workspace</p>
+            </div>
+            <form id="signupForm" class="auth-form">
+                <div class="form-group">
+                    <label for="signupUsername">Username</label>
+                    <input 
+                        type="text" 
+                        id="signupUsername" 
+                        placeholder="Enter your username" 
+                        required
+                    >
+                    <span class="error-message"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input 
+                        type="password" 
+                        id="signupPassword" 
+                        placeholder="Create a password" 
+                        required
+                    >
+                    <span class="error-message"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+            </form>
+
+            <div class="auth-footer">
+                <p>Already have an account? <a href="#" class="toggle-link" onclick="togglePages('signin')">Sign In</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sign In Page -->
+    <div id="signinPage" class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="brand-mark">✦</div>
+                <h1>Welcome back</h1>
+                <p>Your field insights are waiting</p>
+            </div>
+            <form id="signinForm" class="auth-form">
+                <div class="form-group">
+                    <label for="signinUsername">Username</label>
+                    <input 
+                        type="text" 
+                        id="signinUsername" 
+                        placeholder="Enter your username" 
+                        required
+                    >
+                    <span class="error-message"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="signinPassword">Password</label>
+                    <input 
+                        type="password" 
+                        id="signinPassword" 
+                        placeholder="Enter your password" 
+                        required
+                    >
+                    <span class="error-message"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Sign In</button>
+            </form>
+
+            <div class="auth-footer">
+                <p>Don't have an account? <a href="#" class="toggle-link" onclick="togglePages('signup')">Sign Up</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Page -->
+    <div id="dashboardPage" class="dashboard-container">
+        <nav class="navbar">
+            <div class="navbar-brand">
+                <h2><span class="nav-mark">✦</span> CropWise</h2>
+            </div>
+            <button class="btn btn-logout" onclick="logout()">Logout</button>
+        </nav>
+
+        <div class="dashboard-content">
+            <div class="welcome-section">
+                <span class="eyebrow">FIELD INTELLIGENCE</span>
+                <h1>Good to see you, <span id="userDisplay">grower</span>.</h1>
+                <p>Use local weather and AI guidance to plan your next planting.</p>
+            </div>
+
+            <!-- Weather Widget -->
+            <div id="weatherWidget" class="weather-widget">
+                <div id="weatherLoader" class="weather-loader">
+                    <p>Loading location and weather...</p>
+                    <button class="btn-change-location" style="margin-top: 10px;" onclick="showLocationSearch()">Choose city manually</button>
+                </div>
+                <div id="weatherContent" class="weather-content" style="display: none;">
+                    <div class="weather-header">
+                        <h3><span aria-hidden="true">☀</span> Local weather</h3>
+                        <button class="btn-change-location" onclick="showLocationSearch()">Change Location</button>
+                    </div>
+                    <div class="weather-main">
+                        <div class="location-info">
+                            <h2 id="locationName">Location</h2>
+                            <p id="coordinates" class="coordinates"></p>
+                        </div>
+                        <div class="weather-display">
+                            <div class="temperature">
+                                <span id="temp">--</span>°C
+                            </div>
+                            <div class="weather-description">
+                                <p id="description">--</p>
+                                <p id="feelsLike">Feels like: --°C</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="weather-details">
+                        <div class="detail-item">
+                            <span>Humidity</span>
+                            <strong id="humidity">--%</strong>
+                        </div>
+                        <div class="detail-item">
+                            <span>Wind Speed</span>
+                            <strong id="windSpeed">-- km/h</strong>
+                        </div>
+                        <div class="detail-item">
+                            <span>Pressure</span>
+                            <strong id="pressure">-- hPa</strong>
+                        </div>
+                        <div class="detail-item">
+                            <span>Visibility</span>
+                            <strong id="visibility">-- km</strong>
+                        </div>
+                    </div>
+                </div>
+                <div id="weatherError" class="weather-error" style="display: none;">
+                    <p id="errorMessage"></p>
+                    <button class="btn-change-location" onclick="showLocationSearch()">Search location instead</button>
+                </div>
+            </div>
+
+            <!-- Crop/Flower Recommendation Section -->
+            <div class="crop-recommendation-section">
+                <div class="section-heading">
+                    <span class="eyebrow">CROP ADVISOR</span>
+                    <h2>What would you like to grow?</h2>
+                    <p class="section-desc">Get practical, location-aware guidance for crops and flowers.</p>
+                </div>
+                
+                <div class="crop-search-container">
+                    <input 
+                        type="text" 
+                        id="cropSearchInput" 
+                        placeholder="Enter crop or flower name (e.g., Tomato, Wheat, Rose)..." 
+                        class="crop-input"
+                    >
+                    <button class="btn btn-primary recommendation-button" onclick="searchCropRecommendation()">Get guidance <span aria-hidden="true">→</span></button>
+                </div>
+                <p id="recommendationLocation" class="recommendation-location">Choose a location above to tailor your advice.</p>
+
+                <div id="cropRecommendationLoader" class="crop-loader" style="display: none;">
+                    <p>Analyzing crop requirements for your location...</p>
+                </div>
+
+                <div id="cropRecommendationResult" class="crop-result" style="display: none;">
+                    <h3 id="cropName">Crop Name</h3>
+                    <div id="recommendationContent" class="recommendation-content"></div>
+                </div>
+
+                <div id="cropError" class="crop-error" style="display: none;">
+                    <p id="cropErrorMessage"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="crop-recommendation.js"></script>
+    <script src="app.js"></script>
+    <!-- Location Search Modal (moved out so it can display regardless of widget state) -->
+    <div id="locationSearchModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Search Location (India)</h2>
+                <button class="modal-close" onclick="closeLocationSearch()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input 
+                    type="text" 
+                    id="locationSearchInput" 
+                    placeholder="Enter city or district name..." 
+                    class="search-input"
+                >
+                <div id="searchResults" class="search-results"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

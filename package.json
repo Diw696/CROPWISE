@@ -1,0 +1,13 @@
+{
+  "name": "cropwise",
+  "version": "1.0.0",
+  "description": "CropWise - weather-aware, Gemini-powered crop and flower growing guide",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20.6.0"
+  },
+  "license": "UNLICENSED"
+}
