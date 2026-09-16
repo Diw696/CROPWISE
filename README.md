@@ -1,5 +1,5 @@
-# CropWise
-
+## CropWise
+#FILE REVIEWED NEEDS TRANING AND TEST DATA CURRENLTY JUST USING THE API BUT HAD TO MAKE IT BETTER AS WE TRAIN OUR MODEL IN FUTURE
 CropWise combines local weather with a Gemini-powered crop and flower growing guide.
 
 ## Run locally
